@@ -122,15 +122,17 @@ class FormSubmit {
     this.form.innerHTML = this.settings.error;
   }
 
-  getFormObject() {
-    const formObject = {};
-    const fields = this.form.querySelectorAll("[name]");
-    fields.forEach((field) => {
+ getFormObject() {
+  const formObject = {};
+  const fields = this.form.querySelectorAll("[name]");
+  fields.forEach((field) => {
+    
+    if (field.getAttribute("name") !== "honeypot") {
       formObject[field.getAttribute("name")] = field.value.trim().substring(0, 500);
-    });
-    return formObject;
-  }
-
+    }
+  });
+  return formObject;
+}
   onSubmission(event) {
     event.preventDefault();
     const button = this.form.querySelector(this.settings.button);
